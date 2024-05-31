@@ -1,0 +1,14 @@
+.contactsComp{
+	min-height: 95vh;
+	background-color: rgba(189, 189, 189, 0.929);
+
+}
+
+
+.container-contacts{
+	 /*Удалить потом падинг  */
+	padding: 50px;
+
+	align-items: center;
+	justify-content: center;
+}

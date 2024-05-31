@@ -1,0 +1,41 @@
+
+
+header{
+	background-color: white;
+	height: 100px;
+}
+footer{
+	background-color: white;
+	height: 100px;
+}
+
+footer *{
+	margin: 10px;
+}
+.header-left{
+ 	height: 100%;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	flex-wrap: nowrap; /* запретить перенос элементов на новую строку */
+	
+}
+.header-left *{
+	margin: 10px;
+}
+.header-right{
+	height: 100%;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	flex-wrap: nowrap; /* запретить перенос элементов на новую строку */
+	margin-right: 5px;
+	margin-left: 5px;
+
+}
+.header-right *{
+	margin: 10px;
+}
+
+
+

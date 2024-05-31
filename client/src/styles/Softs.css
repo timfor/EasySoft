@@ -1,0 +1,243 @@
+.softsComp{
+	background-color: rgba(222, 222, 222, 0.929);
+	min-height: 95vh;
+
+}
+
+.container-softs{
+	flex-direction: column;
+	align-items: start;
+	justify-content: start;
+
+}
+
+
+.softs-top{
+	width: 100%;
+	height: 50px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	align-self: flex-start;
+	margin-top: 20px;
+	margin-bottom: 30px;
+}
+
+.search-softs *{
+	margin-left: 10px;
+}
+
+.search-softs button {
+	width: 80px;
+	height: 30px;
+}
+.search-softs button {
+	width: 80px;
+	height: 30px;
+}
+.search-softs Input {
+	width: 160px;
+	height: 30px;
+}
+
+
+
+.softs-main{
+	width: 1200px;
+	display: flex;
+	flex-direction: row;
+
+}
+
+.softs-cards{
+
+	display: flex;
+	flex-direction: row;
+	align-items: start;
+	justify-content: start;
+	flex-wrap: wrap;
+}
+.softs-card{
+	background-color: rgba(246, 245, 245, 0.661);
+	border-radius: 20px;
+	width: 200px;
+	height: 300px;
+	margin: 20px;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-around;
+	transition: transform 0.3s, box-shadow 0.6s; /* Добавляем анимацию изменения тени */	
+
+
+	/* Чтобы сделать элементы интерактивными и готовыми к клику */
+	cursor: pointer;
+
+	/* Чтобы заблокировать выделение текста  */
+	user-select: none; 
+}
+
+.softs-card:hover{
+	transform: scale(1.1); /* Увеличиваем размер карточки в 1.1 раза при наведении */
+	box-shadow: -10px 10px 10px rgba(0, 0, 0, 0.5); /* Добавляем тень при наведении */
+	
+}
+
+
+.card-top{
+	height: 40%;
+		padding-top: 15px;
+
+}
+.card-top img{
+	width: 100%;
+	height: 100%;
+}
+
+.card-center{
+	color: black;
+}
+.cardPrice{
+	display: flex;
+	align-items: start;
+	justify-content: start;
+}
+
+.cardPrice #price{
+	color: red;
+	font-weight: 600;
+}
+.card-bottom{
+	width: 100%;
+	padding: 15px;
+
+}
+.card-bottom button{
+	cursor: pointer;
+	border-radius:22px;
+	/* padding: 15px; */
+	width: 100%;
+	height: 45px;
+	font-size: 14px;
+	background: #da5656;
+}
+.softs-card:hover .aboutCard{
+	color: #fff;
+	background: #000;
+	font-size: 19px;
+	height: 65px;
+
+}
+
+/* .card-bottom button:hover{
+
+
+	
+} */
+
+
+/* Единичные страницы товаров */
+.container-big-soft{
+	background: rgb(236, 236, 236);
+	min-height: 400px;
+	width: 100%;
+	margin-top: 50px;
+	margin-bottom: 50px;
+	border-radius: 20px;
+	padding: 30px;
+}
+
+
+.upside-soft{
+	flex-direction: row;
+	display: flex;
+	align-items: start;
+	justify-content: space-between;
+
+}
+
+.bigSoft-leftside{
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+
+}
+.bigSoft-leftside img{
+	height: 220px;
+	border-radius: 15px;
+}
+.bigSoft-leftside h1{
+	margin-left: 35px;
+	/* margin-top: 15px; */
+
+	font-weight: 600;
+}
+
+
+.bigSoft-rightside{
+	min-height:220px ;
+	min-width: 180px;
+	/* background: rgb(255, 255, 255); */
+	border-radius: 15px;
+	padding-left: 15px;
+	padding-right: 15px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+
+	display: flex;
+	align-items: space-between;
+	justify-content: space-between;
+	flex-direction: column;
+}
+
+#PriceText{
+	font-size: 20px;
+
+}
+#PriceNumRed{
+	font-size: 20px;
+	color: #e12b2b;
+
+}
+#btnBuyGood{
+	background-color: #e12b2b;
+	width: 100%;
+	height: 2.5em;
+	border-radius: 20px;
+	font-size: 18px;
+	font-weight: 500;
+	/* Чтобы сделать элементы интерактивными и готовыми к клику */
+	cursor: pointer;
+
+	/* Чтобы заблокировать выделение текста  */
+	user-select: none; 
+}			
+
+#btnBuyGood:hover{
+	color: #fff;
+	background: #000;
+	font-size: 25px;
+	box-shadow: -10px 10px 10px rgba(0, 0, 0, 0.15); /* Добавляем тень при наведении */
+
+}
+
+
+.description-soft{
+	display: flex;
+	justify-content: start;
+	align-items: start;
+	flex-direction: column;
+}
+
+#desc-name-soft-page{
+	font-size: 22px;
+	margin-top: 30px;
+	margin-left: 5px;
+}
+
+#desc-content-soft-page{
+	font-size: 18px;
+	margin-top: 30px;
+	margin-left: 5px;
+}

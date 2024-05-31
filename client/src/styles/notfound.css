@@ -1,0 +1,26 @@
+
+.nf-cont{
+	width: 100%;
+	min-height: 95vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+.nf-child1{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	margin-bottom: 0px;
+}
+#notfound{
+	font-size: 50px;
+	color: rgb(49, 40, 30);
+}
+#notfound2{
+	font-size: 25px;
+	color: rgba(93, 93, 93, 0.913);
+
+}
