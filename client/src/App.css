@@ -1,0 +1,57 @@
+/* Сброс стандартных стилей */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html {
+    min-width: 1200px;
+    min-height: 600px;
+}
+p {
+    white-space: pre-wrap;
+}
+/* Основной контейнер */
+.container {
+    display: flex; /* Использовать flexbox для контейнера */
+    flex-wrap: wrap; /* Разрешить перенос элементов на новую строку */
+    justify-content: space-between; /* Выравнивание контейнера по центру горизонтально */
+    align-items: center; /* Выравнивание контейнера по верху вертикально */
+    width: 100%; /* Ширина контейнера занимает всю доступную ширину */
+	height: 100%;
+    max-width: 1200px; /* Максимальная ширина контейнера */
+    margin: 0 auto; /* Выравнивание по центру */
+    /* padding: 20px; Внутренний отступ контейнера */
+}
+a{
+	text-decoration: none;
+	color: rgb(51, 51, 32);
+    transition: all 0.3s;
+}
+a:hover{
+	fill: rgb(203, 176, 96); /* Задайте начальный цвет заполнения (черный) */
+	color:rgb(203, 176, 96);
+}
+
+
+.active {
+    color: rgb(203, 176, 96);
+    fill: rgb(203, 176, 96);
+    font-weight: bold;
+    transform: scale(1.1); /* Увеличиваем размер карточки в 1.1 раза при наведении */
+    cursor: default;
+  }
+
+button{
+    border: none; /* Убираем границу */
+    box-shadow: none;
+    border-radius: 5px;
+    padding: 5px 5px; /* Задаем отступы */
+    transition: all 0.3s;
+}
+button:hover{
+    fill: rgb(203, 176, 96); /* Задайте начальный цвет заполнения (черный) */
+    background: rgb(225, 190, 86);
+}
+
+

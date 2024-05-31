@@ -1,0 +1,12 @@
+.FaqComp{
+	background-color: rgba(189, 189, 189, 0.929);
+	min-height: 95vh;
+}
+
+.container-Faq{
+		 /*Удалить потом падинг  */
+		 padding: 50px;
+
+		 align-items: center;
+		 justify-content: center;
+}

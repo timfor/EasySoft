@@ -1,0 +1,24 @@
+
+/* Основной контейнер */
+.container-main {
+    display: flex; /* Использовать flexbox для контейнера */
+    flex-wrap: wrap; /* Разрешить перенос элементов на новую строку */
+    justify-content: space-around; /* Выравнивание контейнера по центру горизонтально */
+    align-items: center; /* Выравнивание контейнера по верху вертикально */
+	flex-direction:column;
+    width: 100%; /* Ширина контейнера занимает всю доступную ширину */
+	height: 100%;
+    max-width: 1200px; /* Максимальная ширина контейнера */
+    margin: 0 auto; /* Выравнивание по центру */
+    /* padding: 20px;  */
+	min-height: 95vh;
+
+}
+
+
+
+
+.mainComp{
+	min-height: 1000px;
+	background-color: rgba(189, 189, 189, 0.929);
+}
