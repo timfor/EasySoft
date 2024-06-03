@@ -6,12 +6,13 @@ import morgan from "morgan";
 import passport from "passport";
 
 // routes
-
 import userRoutes from "./routes/userRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
 import goodRoutes from "./routes/goodRoutes.js";
-// controllers
+import authRoutes from "./routes/authRoutes.js";
+import reviewsRoutes from "./routes/reviewsRoutes.js";
 
+//middlewares
 import passportMiddleware from "./middleware/passportMiddleware.js";
 dotenv.config();
 const PORT = process.env.PORT || 5000;
@@ -27,23 +28,20 @@ app.use(bodyParser.json());
 
 const router = express.Router();
 
-// Goods
+// Goods✅
 app.use("/api/goods/", goodRoutes);
 
-// Aut
-router.post("/api/auth/login"); // login
-router.post("/api/auth/register"); // register
+// Auth✅
+app.use("/api/auth/", authRoutes);
 
-// User
+// User✅
 app.use("/api/users/", userRoutes);
+
 // Orders
 app.use("/api/orders/", orderRoutes);
 
 // Reviews
-router.get("/api/reviews/:good_id"); // get user by good_id
-router.delete("/api/reviews/:review_id"); // remove review
-router.post("/api/reviews/create"); // create review
-router.patch("/api/reviews/:review_id"); // update review
+app.use("/api/reviews/", reviewsRoutes);
 
 app.use(router);
 

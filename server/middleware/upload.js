@@ -1,28 +1,23 @@
 // хз надо ли или нет, у меня по другому
 
 import multer from "multer";
-import moment from "moment";
 
-const storage = multer.diskStorage({
-  destination(req, file, cb) {
-    cb(null, "uploads/");
-  },
-  filename(req, file, cb) {
-    const date = moment().format("DDMMYYYY-HHmmss_SSS");
-    cb(null, `${date}-${file.originalname}`);
+const storage = multer.memoryStorage();
+
+const upload = multer({
+  storage: storage,
+  limits: { fileSize: 1024 * 1024 * 10 }, // Ограничение размера файла до 10MB
+  fileFilter: (req, file, cb) => {
+    const fileTypes = /jpeg|jpg|png/;
+    const extname = fileTypes.test(file.originalname.toLowerCase());
+    const mimetype = fileTypes.test(file.mimetype);
+
+    if (extname && mimetype) {
+      cb(null, true);
+    } else {
+      cb(new Error("Only images are allowed (jpeg, jpg, png)"));
+    }
   },
 });
 
-const fileFilter = (req, file, cb) => {
-  if (file.mimetype === "image/png" || file.mimetype === "image/jpg") {
-    cb(null, true);
-  } else {
-    cb(null, false);
-  }
-};
-
-const limits = {
-  fileSize: 1024 * 1024 * 5,
-};
-
-export default multer({ storage, fileFilter, limits });
+export default upload;

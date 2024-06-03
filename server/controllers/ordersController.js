@@ -66,14 +66,35 @@ export const getOrderById = async (req, res) => {
     const order = await Order.findByPk(req.params.order_id, {
       include: [
         {
-          model: OrderStatus,
-          as: "order_status",
+          model: User,
+          as: "user",
+          attributes: ["user_id", "email", "name"],
+          include: [
+            {
+              model: UserRole,
+              as: "role",
+            },
+          ],
         },
         {
           model: OrderItem,
           as: "items",
+          attributes: ["good_id"],
+          include: [
+            {
+              model: Good, // Модель Good, чтобы получить информацию о товаре
+              as: "good", // Указываем алиас для связи
+              attributes: ["good_id", "name"],
+            },
+          ],
+        },
+        {
+          model: OrderStatus,
+          as: "order_status",
+          attributes: ["order_status_id", "name"],
         },
       ],
+      attributes: ["order_id"],
     });
     if (!order) {
       return res.status(404).json({ message: "order not found" });

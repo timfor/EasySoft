@@ -11,7 +11,10 @@ const SoftBigCard = ({ product }) => {
           <div className="upside-soft">
             <div className="bigSoft-leftside">
               <img src={imageUrl} alt="нету фото" />
-              <h1>{product.name}</h1>
+              <div className="nameNcategory">
+                <h1>{product.name}</h1>
+                <h3>{product.category.name}</h3>
+              </div>
             </div>
             <div className="bigSoft-rightside">
               <div>

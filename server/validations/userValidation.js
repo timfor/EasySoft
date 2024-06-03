@@ -17,6 +17,15 @@ export const updateUserValidation = [
     .optional()
     .notEmpty()
     .isString()
-    .withMessage("Name should be a non-empty string"),
-  body("img").optional().isBase64().withMessage("Image must be base64 encoded"),
+    .withMessage("Имя должно быть не пустой строкой"),
+  body("img")
+    .optional()
+    .custom((value, { req }) => {
+      if (!req.file) {
+        throw new Error(
+          "Если изображение загружается - оно должно быть файлом"
+        );
+      }
+      return true;
+    }),
 ];

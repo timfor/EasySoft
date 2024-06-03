@@ -12,9 +12,9 @@ export const Good = sequelize.define(
     name: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
       validate: {
         notEmpty: true,
-        isAlphanumeric: true,
         len: [1, 100],
       },
     },
