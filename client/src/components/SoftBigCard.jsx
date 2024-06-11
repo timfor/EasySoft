@@ -1,8 +1,90 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import useCartStore from "../context/CartStore.js";
+import { useAuthStore } from "../AppStateContext.js";
+import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useForm } from "react-hook-form";
 
 const SoftBigCard = ({ product }) => {
   const base64Img = product.img;
   const imageUrl = `data:image/png;base64,${base64Img}`;
+  const { cart, addToCart, removeFromCart, clearCart } = useCartStore();
+  const token = localStorage.getItem("token");
+
+  const { isAuthenticated, data } = useAuthStore();
+
+  const [reviews, setReviews] = useState([]);
+  const [event, setEvent] = useState(0);
+
+  useEffect(() => {
+    const asyncFetch = async () => {
+      if (isAuthenticated && token) {
+        try {
+          const response = await fetch(
+            `/api/reviews/${product.good_id}?limit=50?page=0`,
+            {
+              method: "GET",
+              headers: {
+                Authorization: `${token}`,
+                "Content-Type": "application/json",
+              },
+            }
+          );
+
+          const reviewsData = await response.json();
+
+          if (response.ok) {
+            setReviews(reviewsData);
+          } else {
+            toast.error("Ошибка" + JSON.stringify(reviewsData));
+          }
+        } catch (err) {
+          toast.error("Ошибка" + JSON.stringify(err));
+        }
+      }
+    };
+    asyncFetch();
+  }, [event]);
+  const {
+    register,
+    formState: { errors, isValid },
+    handleSubmit,
+  } = useForm({
+    mode: "onBlur",
+  });
+
+  const onSubmit = async (dataSubmit) => {
+    const obgSend = {
+      user_id: data.userId,
+      good_id: product.good_id,
+      ...dataSubmit,
+    };
+
+    if (isAuthenticated && token) {
+      try {
+        const response = await fetch(`/api/reviews/create`, {
+          method: "POST",
+          headers: {
+            Authorization: `${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(obgSend),
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+          toast.success(`отзыв добавлен`);
+          setEvent(1);
+        } else {
+          toast.error("Ошибка " + JSON.stringify(result.message));
+        }
+      } catch (error) {
+        console.error("Ошибка:", JSON.stringify(error));
+      }
+    }
+  };
 
   return (
     <>
@@ -22,8 +104,25 @@ const SoftBigCard = ({ product }) => {
                 <br />
                 <p id="PriceNumRed">{product.price},00 ₽</p>
               </div>
-
-              <button id="btnBuyGood">Купить</button>
+              {isAuthenticated ? (
+                <>
+                  <button
+                    id="btnBuyGood"
+                    onClick={() => {
+                      addToCart(product);
+                      toast.success(`${product.name} добавлен в корзину!`);
+                    }}
+                  >
+                    В корзину
+                  </button>
+                </>
+              ) : (
+                <>
+                  <Link to="/auth">
+                    <button id="btnBuyGood">Войти</button>
+                  </Link>
+                </>
+              )}
             </div>
           </div>
           <div className="description-soft">
@@ -31,25 +130,54 @@ const SoftBigCard = ({ product }) => {
             <p id="desc-content-soft-page">{product.description}</p>
           </div>
         </div>
+        <div className="commentSection">
+          <h2>Отзывы</h2>
+          <form className="commentForm" onSubmit={handleSubmit(onSubmit)}>
+            <textarea
+              id="reviewInput"
+              placeholder="Напишите свой отзыв здесь..."
+              {...register("text", {
+                required: "Поле не должно быть пустым",
+              })}
+            />
 
-        {/* <div key={product.good_id} className="softs-card">
-          <div className="card-top">
-            <img src={imageUrl} alt="нету фото" />
-          </div>
-          <div className="card-center">
-            <h3>{product.name}</h3>
-            <div className="cardPrice">
-              <p>Цена: </p>
-              <p id="price">{product.price} р.</p>
-            </div>
-          </div>
-          <div className="card-bottom">
-            <button className="aboutCard">Подробнее</button>
-          </div>
-        </div> */}
+            <input
+              id="commentButton"
+              type="submit"
+              value="Отправить"
+              disabled={!isValid}
+            />
+          </form>
+
+          <hr style={{ border: "1px solid black", width: "100%" }} />
+
+          {reviews[0] ? (
+            reviews.map((comment) => (
+              <CommentItem key={comment.review_id} comment={comment} />
+            ))
+          ) : (
+            <></>
+          )}
+        </div>
       </div>
     </>
   );
 };
 
+const CommentItem = ({ comment }) => {
+  const { text, user } = comment;
+  return (
+    <div className="comment-item">
+      <img
+        src={`data:image/jpeg;base64,${user.img}`}
+        alt={`${user.name}'s avatar`}
+        className="avatarComment"
+      />
+      <div className="comment-content">
+        <h3>{user.name}</h3>
+        <p>{text}</p>
+      </div>
+    </div>
+  );
+};
 export default SoftBigCard;

@@ -21,7 +21,7 @@ const Soft = () => {
       typeof backendData.message !== "undefined" ? (
         <h1>{backendData.message}</h1>
       ) : typeof backendData.name === "undefined" ? (
-        <h3>Loading...</h3>
+        <h3></h3>
       ) : (
         <SoftBigCard product={backendData} />
       )}

@@ -1,0 +1,70 @@
+.prof-right-add-good{
+	width: 35%;
+	min-height: 500px;
+	background-color: rgb(207, 207, 207);
+	border-radius: 35px;
+	margin-top: 30px;
+	margin-bottom: 30px;
+	padding: 15px;
+
+
+	align-self: start;
+	display: flex;
+	flex-direction: column;
+	justify-content: start;
+	align-items: start;
+
+
+}
+
+.newGoodCont{
+	margin-top: 20px;
+}
+
+#AddGoodInp{
+	-moz-appearance: textfield;
+
+	height: 40px;
+	width: 240px;
+	border-radius: 15px;
+	font-size: 15px;
+
+	border: 2px solid #b5b1b1; /* Граница такого же цвета как и фон */
+	background-color: #eae7e7;
+
+	box-shadow: none;
+	text-decoration: none;
+
+	padding: 10px;
+	margin-top: 5px;
+}
+
+
+#addBtnSettings{
+	background: #4CAF50; /* Зеленый */
+	color: white;
+
+	width: 100px;
+	height: 40px;
+	border-radius:15px;
+	border: none;
+	
+	text-align: center;
+	text-decoration: none;
+	font-size: 16px;
+	cursor: pointer;
+}
+
+#addBtnSettings:not(:disabled):hover {
+	background-color: #2c7f30; /* Темно-зеленый */
+}
+  
+#addBtnSettings:disabled {
+	background-color: #9eb998; /* Серый */
+	cursor: not-allowed;
+}
+
+
+.selectAddGood{
+	margin-bottom: 20px;
+}

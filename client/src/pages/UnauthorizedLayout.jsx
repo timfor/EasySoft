@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, Navigate } from "react-router-dom";
 import "../App.css";
 import "../styles/layout.css"; // хз надо или нет
 import "../styles/auth.css";
@@ -9,31 +9,25 @@ import { ReactComponent as Robotimg } from "../images/robot-solid.svg";
 const UnauthorizedLayout = () => {
   return (
     <>
-      <header>
-        <div className="container">
-          <NavLink className="header-left" to="/">
-            <Robotimg width={70} />
-            <h2>AutoSoft</h2>
-          </NavLink>
-
-          <div className="header-right">
-            <NavLink to="/softs">
-              <h3>Программы</h3>
+      <div className="authComp">
+        <div className="container auth-header-cont">
+          <header className="unauthHeder">
+            <NavLink to="./login">
+              <h2>Авторизация</h2>
             </NavLink>
-
-            <NavLink to="/auth/login">
-              <h3>Войти</h3>
+            <h2> | </h2>
+            <NavLink to="./Register">
+              <h2>Регистрация</h2>
             </NavLink>
-            <NavLink to="/auth/register">
-              <h3>Зарегистрироваться</h3>
-            </NavLink>
-          </div>
+          </header>
         </div>
-      </header>
 
-      <main>
-        <Outlet />
-      </main>
+        <main>
+          <div className="container auth-header-cont ">
+            <Outlet />
+          </div>
+        </main>
+      </div>
     </>
   );
 };

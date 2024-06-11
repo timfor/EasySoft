@@ -32,8 +32,20 @@ a:hover{
 	fill: rgb(203, 176, 96); /* Задайте начальный цвет заполнения (черный) */
 	color:rgb(203, 176, 96);
 }
+.active#prof-link{
+
+    font-weight: bold;
+    transform-origin: left;
+    transform: scale(1.1) ;
+    cursor: default;
+}
 
 
+.active#cartNavLink {
+
+    transform: none; 
+    cursor: default;
+}
 .active {
     color: rgb(203, 176, 96);
     fill: rgb(203, 176, 96);

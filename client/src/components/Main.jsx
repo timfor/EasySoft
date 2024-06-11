@@ -7,16 +7,19 @@ const Main = () => {
   return (
     <>
       <div className="mainComp">
-        <div className="container-main">
+        <div className="container-main ">
           <div className="block" id="b1">
-            <h1>AutoSoft - быстрые решения</h1>
+            <h1>AutoSoft - быстрые решения </h1>
             <p></p>
           </div>
           <div className="block" id="b2">
-            <h1>Главная</h1>
-          </div>
-          <div className="block" id="b3">
-            <h1>Главная</h1>
+            <h1>О нас</h1>
+            <h3>
+              Autosoft специализируется на продаже программ для автоматизации
+              процесов. <br /> Мультижейтсвенные программы, автозаполнители
+              форм, авторегистраторы аккаунтов <br /> и программы помогающие в
+              мелких задачах.
+            </h3>
           </div>
         </div>
       </div>

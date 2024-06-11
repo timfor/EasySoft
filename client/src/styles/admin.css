@@ -1,0 +1,33 @@
+.AdminComp{
+	background-color: rgba(222, 222, 222, 0.929);
+	min-height: 95vh;
+}
+
+.adm-cont{
+	display: flex;
+	justify-content: start;
+}
+
+
+.prof-left-first{
+	width: 25%;
+	min-height: 300px;
+	/* flex-wrap: wrap; */
+
+	background-color: rgb(207, 207, 207);
+	border-radius: 35px;
+	margin-top: 30px;
+	margin-bottom: 30px;
+	padding: 15px;
+
+	align-self: start;
+	display: flex;
+	flex-direction: column;
+	justify-content: start;
+	align-items: start;
+
+}
+
+.prof-left-first h2{
+	margin-bottom: 20px;
+}

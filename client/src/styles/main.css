@@ -3,7 +3,7 @@
 .container-main {
     display: flex; /* Использовать flexbox для контейнера */
     flex-wrap: wrap; /* Разрешить перенос элементов на новую строку */
-    justify-content: space-around; /* Выравнивание контейнера по центру горизонтально */
+    justify-content: start; /* Выравнивание контейнера по центру горизонтально */
     align-items: center; /* Выравнивание контейнера по верху вертикально */
 	flex-direction:column;
     width: 100%; /* Ширина контейнера занимает всю доступную ширину */
@@ -13,12 +13,20 @@
     /* padding: 20px;  */
 	min-height: 95vh;
 
+    padding-top: 200px;
+
 }
 
 
 
 
 .mainComp{
-	min-height: 1000px;
-	background-color: rgba(189, 189, 189, 0.929);
+	min-height: 95vh;
+	background-color: rgba(222, 222, 222, 0.929);
+}
+
+#b2{
+    padding-top:200px;
+
+    text-align: center
 }

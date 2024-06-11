@@ -5,9 +5,16 @@ import ProductList from "./Card";
 
 const Softs1 = () => {
   const [backendData, setBackendData] = useState([{}]);
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
-    fetch("/api/goods")
+    fetch("/api/goods?limit=50?page=0", {
+      method: "GET",
+      headers: {
+        Authorization: `${token}`,
+        "Content-Type": "application/json",
+      },
+    })
       .then((response) => response.json())
       .then((data) => {
         setBackendData(data);
@@ -27,7 +34,7 @@ const Softs1 = () => {
           </div>
           <div className="softs-main">
             {typeof backendData[0].name === "undefined" ? (
-              <h3>Loading...</h3>
+              <h3></h3>
             ) : (
               <ProductList products={backendData} />
             )}

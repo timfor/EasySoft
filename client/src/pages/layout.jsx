@@ -1,10 +1,11 @@
 import React from "react";
-import { NavLink, Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet } from "react-router-dom";
 import "../App.css";
 import "../styles/layout.css"; // хз надо или нет
 import "../styles/auth.css";
 
 import { ReactComponent as Robotimg } from "../images/robot-solid.svg";
+import { ReactComponent as Profileimg } from "../images/user-regular.svg";
 
 const UnauthorizedLayout = () => {
   return (
@@ -21,11 +22,8 @@ const UnauthorizedLayout = () => {
               <h3>Программы</h3>
             </NavLink>
 
-            <NavLink to="/auth/login">
-              <h3>Войти</h3>
-            </NavLink>
-            <NavLink to="/auth/register">
-              <h3>Зарегистрироваться</h3>
+            <NavLink to="/auth">
+              <Profileimg width={27} />
             </NavLink>
           </div>
         </div>
@@ -34,6 +32,17 @@ const UnauthorizedLayout = () => {
       <main>
         <Outlet />
       </main>
+      <footer>
+        <div className="container">
+          <p>made by tmcrypted</p>
+
+          <div>
+            <NavLink to="/contacts">Контакты</NavLink>
+            <NavLink to="/contacts">Сотрудничество</NavLink>
+            <NavLink to="/contacts">Поддержка</NavLink>
+          </div>
+        </div>
+      </footer>
     </>
   );
 };

@@ -1,12 +1,141 @@
 .CartComp{
-	background-color: rgba(189, 189, 189, 0.929);
+	background-color: rgba(222, 222, 222, 0.929);
 	min-height: 95vh;
+
+
 }
 
-.container-Cart{
-		 /*Удалить потом падинг  */
-		 padding: 50px;
+.cart-cont{
+		flex-direction: column;
+		 align-items: start;
+		 justify-content: start;
+}
 
-		 align-items: center;
-		 justify-content: center;
+.cart-top{
+	width: 66%;
+
+	align-self: center;
+
+
+	height: 50px;
+
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: 20px;
+	margin-bottom: 30px;
+}
+
+.cart-top button{
+	margin-left: 10px;
+	height: 40px;
+	width: 140px;
+	border-radius: 33px;
+	cursor: pointer;
+}
+.cart-top button:hover{
+	background-color: #bb6868;
+
+}
+
+
+.cart-content{
+	width: 66%;
+
+	align-self: center;
+
+	flex-direction: column;
+	display: flex;
+	justify-content: start;
+	align-items: center;
+
+	margin-top: 20px;
+	margin-bottom: 30px;
+}
+
+.cart-elem{
+	flex-direction: row;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+	height: 60px;
+	
+	background-color: #fff;
+	border-radius: 25px;
+	padding: 15px;
+	margin-bottom: 10px;
+	overflow:hidden;
+
+	user-select: none; 
+
+
+}
+.r_cart_elem{
+	display: flex;
+	align-items: center;
+
+}
+
+.r_cart_elem img {
+	width: 50px;
+	margin-right: 10px;
+	border-radius:15px;
+}
+
+
+.l_cart_elem{
+	display: flex;
+	align-items: center;
+}
+.l_cart_elem button{
+	margin-left: 10px;
+	height: 30px;
+	width: 88px;
+	border-radius: 33px;
+	cursor: pointer;
+}
+.l_cart_elem button:hover{
+background-color: #bb6868;
+}
+.l_cart_elem p{
+	font-size: 16px;
+	color: #e12b2b;
+	font-weight: 600;
+	margin-left:15px ;
+}
+
+
+
+.cart-bottom{
+	width: 66%;
+
+	align-self: center;
+
+	flex-direction: row;
+	display: flex;
+	justify-content: end;
+	align-items: center;
+
+	margin-top: 20px;
+	margin-bottom: 30px;
+
+}
+
+.cart-bottom p{
+	font-size: 16px;
+	color: #e12b2b;
+	font-weight: 600;
+	margin-left:5px ;
+}
+.cart-bottom button{
+	margin-left:15px ;
+	background-color: rgb(196, 220, 160);
+	width: 140px;
+	height: 40px;
+	border-radius: 33px;
+	cursor: pointer;
+}
+.cart-bottom button:hover{
+	background-color: rgb(138, 190, 66);
 }

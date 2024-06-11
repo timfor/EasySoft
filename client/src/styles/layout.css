@@ -38,4 +38,33 @@ footer *{
 }
 
 
+#badgeCart{
+	background: red;
+	width: 16px;
+	height: 16px;
+	border-radius: 20px;
+	position: absolute;
+	top: 0;
+	margin-top: 47px;
+	font-size: 12px;
 
+	padding-bottom: 2px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	color: white;
+
+	font-size: 16px;
+	font-weight: 500;
+}
+
+a#tmcrypted{
+	font-size: 18px;
+	text-decoration:underline;
+	color: rgb(79, 103, 103)	;
+}
+a#tmcrypted:hover{
+
+	color: rgb(63, 41, 81)	;
+}
