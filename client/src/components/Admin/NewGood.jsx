@@ -41,7 +41,7 @@ const NewGood = () => {
           });
           const categoriesData = await response2.json();
 
-          if (response.ok) {
+          if (response2.ok) {
             setCategories(categoriesData);
           } else {
             toast.error("Ошибка" + JSON.stringify(categoriesData));

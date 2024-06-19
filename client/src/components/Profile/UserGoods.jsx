@@ -49,6 +49,7 @@ const UserGoods = () => {
                 <p>
                   id {element.good_id} {element.good.name}{" "}
                   <button>Скачать</button>
+                  <button>Оставить отзыв</button>
                 </p>
               </>
             ))}

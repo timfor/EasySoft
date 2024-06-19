@@ -43,35 +43,55 @@ const Profile = () => {
     <>
       <div className="profileComp">
         <div className="container profileCont">
-          <div className="prof-left-first">
-            <div className="imgProfileDiv">
-              {!userData || userData.img == "bm9uZQ==" ? ( // bm9uZQ== это "none" в языке бд хард код да я знаю но ничего поделать не могу дедлайны горят
-                <img id="imgProfile" src={profileBigImg} alt="" />
-              ) : (
-                <img
-                  id="imgProfile"
-                  src={`data:image/png;base64,${userData.img}`}
-                  alt=""
-                />
-              )}
-              {userData ? <h2>{userData.name}</h2> : ""}
+          <div className="prof-left">
+            <div className="prof-left-first">
+              <div className="imgProfileDiv">
+                {!userData || userData.img == "bm9uZQ==" ? ( // bm9uZQ== это "none" в языке бд хард код да я знаю но ничего поделать не могу дедлайны горят
+                  <img id="imgProfile" src={profileBigImg} alt="" />
+                ) : (
+                  <img
+                    id="imgProfile"
+                    src={`data:image/png;base64,${userData.img}`}
+                    alt=""
+                  />
+                )}
+                {userData ? <h2>{userData.name}</h2> : ""}
+              </div>
+              <p id="profInfoP1">{data.email}</p>
+              {userData ? <p id="profInfoP2">{userData.role.name}</p> : ""}
+              {userData ? <p id="profInfoP3">id: {userData.user_id}</p> : ""}
+
+              <div className="navigationProfile"></div>
+              <NavLink id="prof-link" to="./goods">
+                <h3>Мои товары</h3>
+              </NavLink>
+              <NavLink id="prof-link" to="./orders">
+                <h3>Мои заказы</h3>
+              </NavLink>
+              <NavLink id="prof-link" to="./settings">
+                <h3>Настройки</h3>
+              </NavLink>
             </div>
-            <p id="profInfoP1">{data.email}</p>
-            {userData ? <p id="profInfoP2">{userData.role.name}</p> : ""}
-            {userData ? <p id="profInfoP3">id: {userData.user_id}</p> : ""}
-
-            <div className="navigationProfile"></div>
-            <NavLink id="prof-link" to="./goods">
-              <h3>Мои товары</h3>
-            </NavLink>
-            <NavLink id="prof-link" to="./orders">
-              <h3>Мои заказы</h3>
-            </NavLink>
-            <NavLink id="prof-link" to="./settings">
-              <h3>Настройки</h3>
-            </NavLink>
+            {data && data.roleId >= 2 ? (
+              <div className="prof-left-second">
+                <h2>Выберите действие:</h2>
+                <NavLink id="prof-link" to="./admin/newGood">
+                  <h3>Добавить товар</h3>
+                </NavLink>
+                <NavLink id="prof-link" to="./admin/newCategory">
+                  <h3>Добавить категорию</h3>
+                </NavLink>
+                <NavLink id="prof-link" to="./admin/goods">
+                  <h3>Товары</h3>
+                </NavLink>
+                <NavLink id="prof-link" to="./admin/categories">
+                  <h3>Категории</h3>
+                </NavLink>
+              </div>
+            ) : (
+              <></>
+            )}
           </div>
-
           <Outlet />
         </div>
       </div>

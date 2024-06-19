@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import useCartStore from "../context/CartStore.js";
-import { useAuthStore } from "../AppStateContext.js";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useForm } from "react-hook-form";
+
+import useGoodsStore from "../context/GoodsStore.js";
+import { useAuthStore } from "../AppStateContext.js";
 
 const SoftBigCard = ({ product }) => {
   const base64Img = product.img;
@@ -13,6 +15,9 @@ const SoftBigCard = ({ product }) => {
   const token = localStorage.getItem("token");
 
   const { isAuthenticated, data } = useAuthStore();
+  const { userProducts, fetchUserProducts } = useGoodsStore();
+
+  fetchUserProducts(65);
 
   const [reviews, setReviews] = useState([]);
   const [event, setEvent] = useState(0);

@@ -46,7 +46,7 @@ export const createGoodValidation = [
   body("good_status_id")
     .notEmpty()
     .isInt()
-    .isLength({ min: 1, max: 1 })
+    .isLength({ min: 1, max: 3 })
     .withMessage(
       "Id статуса товара не должно быть пустым и должно быть существующим int"
     ),

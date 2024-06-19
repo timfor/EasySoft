@@ -28,13 +28,13 @@ app.use(bodyParser.json());
 
 const router = express.Router();
 
-// Goods✅
+// Goods
 app.use("/api/goods/", goodRoutes);
 
 // Auth✅
 app.use("/api/auth/", authRoutes);
 
-// User✅
+// User
 app.use("/api/users/", userRoutes);
 
 // Orders

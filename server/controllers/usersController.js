@@ -46,13 +46,11 @@ export const updateUser = async (req, res) => {
 
     //
     if (!req.files || !req.files[0]) {
-      req.body.img = "none";
+      await user.update({ name: req.body.name });
     } else {
       req.body.img = req.files[0].buffer;
+      await user.update(req.body);
     }
-    //
-
-    await user.update(req.body);
 
     return res
       .status(200)

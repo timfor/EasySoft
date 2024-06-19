@@ -12,7 +12,7 @@ export const register = async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       const errorMessages = errors.array().map((error) => error.msg);
-      return res.status(400).json({ errors: errorMessages });
+      return res.status(400).json({ success: false, errors: errorMessages });
     }
 
     const user = await User.findOne({
@@ -22,9 +22,9 @@ export const register = async (req, res) => {
     });
 
     if (user != null) {
-      return res.status(409).json({
-        message: "Такой email уже занят",
-      });
+      return res
+        .status(409)
+        .json({ success: false, errors: ["Такой email уже занят"] });
     }
 
     const salt = bcrypt.genSaltSync(10); // генерим соль для
@@ -36,19 +36,17 @@ export const register = async (req, res) => {
     req.body.img = "none";
     const createdUser = await User.create(req.body);
 
-    return res
-      .status(201)
-      .json({
-        success: true,
-        message: "Регистрация успешна",
-        user: {
-          user_id: createdUser.user_id,
-          email: createdUser.email,
-          role_id: createdUser.role_id,
-        },
-      });
+    return res.status(201).json({
+      success: true,
+      message: "Регистрация успешна",
+      user: {
+        user_id: createdUser.user_id,
+        email: createdUser.email,
+        role_id: createdUser.role_id,
+      },
+    });
   } catch (err) {
-    return res.status(400).json({ error: err.message });
+    return res.status(400).json({ errors: err.message });
   }
 };
 
@@ -57,7 +55,7 @@ export const login = async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       const errorMessages = errors.array().map((error) => error.msg);
-      return res.status(400).json({ errors: errorMessages });
+      return res.status(400).json({ success: false, errors: [errorMessages] });
     }
 
     const candidate = await User.findOne({
@@ -69,7 +67,7 @@ export const login = async (req, res) => {
     if (candidate == null) {
       return res
         .status(404)
-        .json({ success: false, message: "Пользователь не найден" });
+        .json({ success: false, errors: ["Пользователь не найден"] });
     }
 
     //
@@ -83,18 +81,21 @@ export const login = async (req, res) => {
         {
           email: candidate.email,
           userId: candidate.user_id,
+          roleId: candidate.role_id,
+          name: candidate.name,
         },
         jwt_key,
         { expiresIn: 60 * 60 }
       );
-      res.status(200).json({ token: `Bearer ${token}` });
+      res.status(200).json({ success: true, token: `Bearer ${token}` });
     } else {
-      res
-        .status(401)
-        .json({ message: "пароли не совпадают, попробуйте снова" });
+      res.status(401).json({
+        success: false,
+        errors: ["пароли не совпадают, попробуйте снова"],
+      });
     }
     //
   } catch (err) {
-    return res.status(400).json({ error: err.message });
+    return res.status(400).json({ success: false, errors: [err.message] });
   }
 };

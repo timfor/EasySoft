@@ -23,7 +23,7 @@ router.post(
   requestBodyValidator,
   authRegisterValidation,
   register
-);
+); //✅
 router.post(
   "/login",
   upload.any(),
@@ -31,6 +31,6 @@ router.post(
   requestBodyValidator,
   authLoginValidation,
   login
-); // register
+); //✅
 
 export default router;

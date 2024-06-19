@@ -29,8 +29,8 @@ a{
     transition: all 0.3s;
 }
 a:hover{
-	fill: rgb(203, 176, 96); /* Задайте начальный цвет заполнения (черный) */
-	color:rgb(203, 176, 96);
+    color: rgb(0, 0, 0);
+    fill: rgb(0, 0, 0);
 }
 .active#prof-link{
 
@@ -47,8 +47,8 @@ a:hover{
     cursor: default;
 }
 .active {
-    color: rgb(203, 176, 96);
-    fill: rgb(203, 176, 96);
+    color: rgb(0, 0, 0);
+    fill: rgb(0, 0, 0);
     font-weight: bold;
     transform: scale(1.1); /* Увеличиваем размер карточки в 1.1 раза при наведении */
     cursor: default;

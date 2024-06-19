@@ -4,6 +4,9 @@ import {
   getGoodById,
   createGood,
   updateGood,
+  getGoodStatuses,
+  getCategories,
+  createCategory,
 } from "../controllers/goodsController.js";
 import {
   createGoodValidation,
@@ -24,8 +27,19 @@ const router = express.Router();
 //   getAllGoodsController
 // );
 
-router.get("/", getAllGoods); //
-router.get("/:good_id", getGoodById); // get good by good_id
+router.get("/", getAllGoods); //✅
+router.get("/statuses", getGoodStatuses); //✅
+router.get("/categories", getCategories); //✅
+router.get("/:good_id", getGoodById); // get good by good_id✅
+router.post(
+  "/categories/create",
+  createCategory,
+  upload.any(),
+  contentTypeValidator,
+  requestBodyValidator,
+  // добавить сюда валидацию
+  createCategory
+); // get good by good_id✅
 router.post(
   "/create",
   upload.any(),

@@ -4,7 +4,7 @@ import "../App.css";
 import "../styles/layout.css"; // хз надо или нет
 import "../styles/auth.css";
 
-import { ReactComponent as Robotimg } from "../images/robot-solid.svg";
+import Robotimg from "../images/logo2.png";
 import { ReactComponent as Profileimg } from "../images/user-regular.svg";
 
 const UnauthorizedLayout = () => {
@@ -13,8 +13,7 @@ const UnauthorizedLayout = () => {
       <header>
         <div className="container">
           <NavLink className="header-left" to="/">
-            <Robotimg width={70} />
-            <h2>AutoSoft</h2>
+            <img src={Robotimg} alt="" />
           </NavLink>
 
           <div className="header-right">

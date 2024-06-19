@@ -75,6 +75,55 @@
 
 
 
+
+.softs-filters{
+	padding-left: 20px;
+	padding-right: 20px;
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+}
+
+.softs-filters-right button{
+	width: 150px;
+	height: 50px;
+	border-radius: 25px;
+	cursor: pointer;
+
+	background-color: #cbc4c4 ;
+}
+.softs-filters-right button:hover{
+	background-color: #e06060;
+	width: 150px;
+	height: 50px;
+	border-radius: 25px;
+	cursor: pointer;
+}
+
+
+#sortByPrice{
+	min-width: 150px;
+}
+#selectedCategory{
+	min-width: 100px;
+}
+#itemsPerPage{
+	min-width: 120px;
+}
+#itemsPerPage-label{
+	min-width: 250px;
+
+}
+.results-search-softs #search-result-text{
+	margin-top: 20px;
+	margin-left: 20px;
+
+}
+.softs-main #nothingFound{
+	margin-top: 20px;
+	margin-left: 20px;
+}
+
 .softs-main{
 	width: 1200px;
 	display: flex;
@@ -89,7 +138,15 @@
 	align-items: start;
 	justify-content: start;
 	flex-wrap: wrap;
+
+	min-height: 680px;
 }
+
+.pagination-container{
+	margin-bottom: 20px;
+}
+
+
 .softs-card{
 	background-color: rgba(246, 245, 245, 0.661);
 	border-radius: 20px;
@@ -154,11 +211,11 @@
 	width: 100%;
 	height: 45px;
 	font-size: 14px;
-	background: #da5656;
+	background: #6ca79a;
 }
 .softs-card:hover .aboutCard{
 	color: #fff;
-	background: #000;
+	background: #42D0A9;
 	font-size: 19px;
 	height: 65px;
 
@@ -269,7 +326,7 @@
 	animation-delay: 0.9s; /* Start after image animation */
 }
 #btnBuyGood{
-	background-color: #e12b2b;
+	background-color: #7ED321;
 	width: 100%;
 	height: 2.5em;
 	border-radius: 20px;
@@ -291,7 +348,7 @@
 
 #btnBuyGood:hover{
 	color: #fff;
-	background: #000;
+	background: #6BB61D;
 	font-size: 25px;
 	box-shadow: -10px 10px 10px rgba(0, 0, 0, 0.15); /* Добавляем тень при наведении */
 

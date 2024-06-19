@@ -1,10 +1,10 @@
-import React from "react";
-import { NavLink, Outlet } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { NavLink, Outlet, useNavigate, useLocation } from "react-router-dom";
 
 import "../App.css";
 import "../styles/layout.css";
 
-import { ReactComponent as Robotimg } from "../images/robot-solid.svg";
+import Robotimg from "../images/logo2.png";
 import { ReactComponent as Profileimg } from "../images/user-regular.svg";
 import { ReactComponent as Settingsimg } from "../images/gear-solid.svg";
 import { ReactComponent as LogoutImg } from "../images/logout.svg";
@@ -16,13 +16,23 @@ import useCartStore from "../context/CartStore.js";
 const LayoutAuth = () => {
   const { logout, data } = useAuthStore();
   const { cart, clearCart } = useCartStore();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [searchInput, setSearchInput] = useState();
 
   const handleLogout = () => {
     clearCart();
     logout();
-    // После выхода можно перенаправить пользователя на главную страницу или страницу входа
-    // Используйте библиотеку react-router-dom для навигации, если необходимо
-    // navigate('/auth');
+  };
+
+  useEffect(() => {
+    setSearchInput("");
+  }, [location.pathname]);
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    navigate(`/softs?search=${encodeURIComponent(searchInput)}`);
+    setSearchInput("");
   };
 
   return (
@@ -30,9 +40,18 @@ const LayoutAuth = () => {
       <header>
         <div className="container">
           <NavLink className="header-left" to="/">
-            <Robotimg width={70} />
-            <h2>AutoSoft</h2>
+            <img src={Robotimg} alt="" />
           </NavLink>
+
+          <form className="search-form" onSubmit={handleSearchSubmit}>
+            <input
+              type="text"
+              placeholder="Поиск товаров..."
+              value={searchInput}
+              onChange={(e) => setSearchInput(e.target.value)}
+            />
+            <button type="submit">Искать</button>
+          </form>
 
           <div className="header-right">
             <NavLink to="/contacts">
@@ -42,14 +61,6 @@ const LayoutAuth = () => {
             <NavLink to="/softs">
               <h3>Каталог</h3>
             </NavLink>
-
-            {data.roleId >= 2 ? (
-              <>
-                <NavLink to="/admin">
-                  <h3>Админ панель</h3>
-                </NavLink>
-              </>
-            ) : null}
 
             <NavLink to="/cart" id="cartNavLink">
               <CartImg width={33} />

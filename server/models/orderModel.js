@@ -28,7 +28,7 @@ export const Order = sequelize.define(
   },
   {
     tableName: "orders", // Явно указываем имя таблицы
-    timestamps: false, // Отключение автоматического создания полей createdAt и updatedAt
+    timestamps: true, // Отключение автоматического создания полей createdAt и updatedAt
   }
 );
 

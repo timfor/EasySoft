@@ -31,7 +31,6 @@ import UserGoods from "./components/Profile/UserGoods.jsx";
 
 import OrderPage from "./components/OrderPage.jsx";
 
-import AdminPage from "./components/Admin/admin.jsx";
 import AdminCategories from "./components/Admin/AdminCategories.jsx";
 import AdminGoods from "./components/Admin/AdminGoods.jsx";
 import NewCategory from "./components/Admin/NewCategory.jsx";
@@ -72,26 +71,19 @@ function App() {
             <Route path="orders" element={<Orders />} />
             <Route path="settings" element={<Settings />} />
             <Route path="goods" element={<UserGoods />} />
+            {data && data.roleId >= 2 ? (
+              <>
+                <Route path="admin/newGood" element={<NewGood />} />
+                <Route path="admin/newCategory" element={<NewCategory />} />
+                <Route path="admin/goods" element={<AdminGoods />} />
+                <Route path="admin/categories" element={<AdminCategories />} />
+              </>
+            ) : (
+              <></>
+            )}
           </Route>
 
           <Route path="contacts" element={<Contacts />} />
-
-          {data && data.roleId >= 2 ? (
-            <>
-              <Route path="admin" element={<AdminPage />}>
-                <Route
-                  index
-                  element={<Navigate to="newGood" replace={true} />}
-                />
-                <Route path="newGood" element={<NewGood />} />
-                <Route path="newCategory" element={<NewCategory />} />
-                <Route path="goods" element={<AdminGoods />} />
-                <Route path="categories" element={<AdminCategories />} />
-              </Route>
-            </>
-          ) : (
-            <></>
-          )}
 
           {!isAuthenticated ? (
             <Route path="/auth" element={<UnauthorizedLayout />}>

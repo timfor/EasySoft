@@ -116,8 +116,6 @@ export const Category = sequelize.define(
       allowNull: false,
       validate: {
         notEmpty: true,
-        isAlphanumeric: true,
-        len: [1, 100],
       },
     },
   },

@@ -10,16 +10,37 @@
 	flex-direction: row;
 }
 
-.prof-left-first{
+.prof-left{
+	display: flex;
+	flex-direction: column;
 	width: 25%;
-	min-height: 500px;
-	/* flex-wrap: wrap; */
+	margin-top: 30px;
+	margin-right: 2%;
+
+}
+
+.prof-left-first{
+	min-height:300px;
+	width: 100%;
 
 	background-color: rgb(207, 207, 207);
 	border-radius: 35px;
+	padding: 15px;
+
+	align-self: start;
+	display: flex;
+	flex-direction: column;
+	justify-content: start;
+	align-items: start;
+
+}
+.prof-left-second{
+	width: 100%;
+	min-height: 300px;
+
 	margin-top: 30px;
-	margin-bottom: 30px;
-	margin-right: 2%;
+	background-color: rgb(207, 207, 207);
+	border-radius: 35px;
 	padding: 15px;
 
 	align-self: start;
