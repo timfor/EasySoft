@@ -15,9 +15,9 @@ const SoftBigCard = ({ product }) => {
   const token = localStorage.getItem("token");
 
   const { isAuthenticated, data } = useAuthStore();
-  const { userProducts, fetchUserProducts } = useGoodsStore();
+  // const { userProducts, fetchUserProducts } = useGoodsStore();
 
-  fetchUserProducts(65);
+  // fetchUserProducts(65);
 
   const [reviews, setReviews] = useState([]);
   const [event, setEvent] = useState(0);
@@ -51,6 +51,7 @@ const SoftBigCard = ({ product }) => {
     };
     asyncFetch();
   }, [event]);
+
   const {
     register,
     formState: { errors, isValid },

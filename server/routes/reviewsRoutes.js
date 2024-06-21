@@ -44,21 +44,4 @@ router.patch(
   updateReviewValidation,
   updateReview
 ); // update review
-
-// router.post(
-//   "/register",
-//   upload.any(),
-//   contentTypeValidator,
-//   requestBodyValidator,
-//   authRegisterValidation,
-//   register
-// );
-// router.post(
-//   "/login",
-//   upload.any(),
-//   contentTypeValidator,
-//   requestBodyValidator,
-//   authLoginValidation,
-//   login
-// );
 export default router;

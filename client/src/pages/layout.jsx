@@ -1,5 +1,12 @@
-import React from "react";
-import { Link, NavLink, Outlet } from "react-router-dom";
+import React, { useState } from "react";
+import {
+  Link,
+  NavLink,
+  Outlet,
+  useNavigate,
+  useLocation,
+} from "react-router-dom";
+
 import "../App.css";
 import "../styles/layout.css"; // хз надо или нет
 import "../styles/auth.css";
@@ -8,6 +15,16 @@ import Robotimg from "../images/logo2.png";
 import { ReactComponent as Profileimg } from "../images/user-regular.svg";
 
 const UnauthorizedLayout = () => {
+  const [searchInput, setSearchInput] = useState();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    navigate(`/softs?search=${encodeURIComponent(searchInput)}`);
+    setSearchInput("");
+  };
+
   return (
     <>
       <header>
@@ -16,7 +33,21 @@ const UnauthorizedLayout = () => {
             <img src={Robotimg} alt="" />
           </NavLink>
 
+          <form className="search-form" onSubmit={handleSearchSubmit}>
+            <input
+              type="text"
+              placeholder="Поиск товаров..."
+              value={searchInput}
+              onChange={(e) => setSearchInput(e.target.value)}
+            />
+            <button type="submit">Искать</button>
+          </form>
+
           <div className="header-right">
+            <NavLink to="/contacts">
+              <h3>Контакты</h3>
+            </NavLink>
+
             <NavLink to="/softs">
               <h3>Программы</h3>
             </NavLink>
@@ -33,12 +64,15 @@ const UnauthorizedLayout = () => {
       </main>
       <footer>
         <div className="container">
-          <p>made by tmcrypted</p>
+          <p>
+            made by
+            <a id="tmcrypted" target="_blank" href="https://linktr.ee/timfor">
+              tmcrypted
+            </a>
+          </p>
 
           <div>
             <NavLink to="/contacts">Контакты</NavLink>
-            <NavLink to="/contacts">Сотрудничество</NavLink>
-            <NavLink to="/contacts">Поддержка</NavLink>
           </div>
         </div>
       </footer>

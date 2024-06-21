@@ -7,6 +7,8 @@ import {
   getGoodStatuses,
   getCategories,
   createCategory,
+  updateCategory,
+  deleteCategory,
 } from "../controllers/goodsController.js";
 import {
   createGoodValidation,
@@ -56,5 +58,12 @@ router.patch(
   updateGoodValidation,
   updateGood
 ); // update good
-
+router.patch(
+  "/category/:category_id",
+  upload.any(),
+  contentTypeValidator,
+  requestBodyValidator,
+  updateCategory
+); // update category
+router.delete("/category/:category_id", upload.any(), deleteCategory);
 export default router;

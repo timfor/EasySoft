@@ -220,3 +220,50 @@ export const createCategory = async (req, res) => {
     return res.status(400).json({ error: err.message });
   }
 };
+
+export const updateCategory = async (req, res) => {
+  try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      const errorMessages = errors.array().map((error) => error.msg);
+      return res.status(400).json({ errors: errorMessages });
+    }
+
+    const existingCategory = await Category.findByPk(req.params.category_id);
+    if (!existingCategory) {
+      return res
+        .status(404)
+        .json({ message: "Категория с таким id не найдена" });
+    }
+
+    await existingCategory.update(req.body);
+
+    return res
+      .status(201)
+      .json({ success: true, message: "Товар успешно обновлен" });
+  } catch (err) {
+    return res.status(400).json({ error: err.message });
+  }
+};
+
+export const deleteCategory = async (req, res) => {
+  try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      const errorMessages = errors.array().map((error) => error.msg);
+      return res.status(400).json({ errors: errorMessages });
+    }
+
+    const category = await Category.findByPk(req.params.category_id);
+    if (!category) {
+      return res.status(404).json({ message: "Категория не найдена" });
+    }
+
+    await category.destroy();
+    return res
+      .status(200)
+      .json({ success: true, message: "Категория успешно удален" });
+  } catch (err) {
+    return res.status(400).json({ error: err.message });
+  }
+};

@@ -1,0 +1,23 @@
+.prof-right-goods{
+	width: 73%;
+	min-height: 300px;
+	background-color: rgb(207, 207, 207);
+	border-radius: 35px;
+	margin-top: 30px;
+	margin-bottom: 30px;
+	padding: 15px;
+
+
+	align-self: start;
+	display: flex;
+	flex-direction: column;
+	justify-content: start;
+	align-items: start;
+
+
+}
+
+.GoodsAdmCont{
+	margin-top: 20px;
+	width: 100%;
+}
