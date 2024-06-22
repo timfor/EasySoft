@@ -112,15 +112,21 @@ const SoftBigCard = ({ product }) => {
               </div>
               {isAuthenticated ? (
                 <>
-                  <button
-                    id="btnBuyGood"
-                    onClick={() => {
-                      addToCart(product);
-                      toast.success(`${product.name} добавлен в корзину!`);
-                    }}
-                  >
-                    В корзину
-                  </button>
+                  {product.good_status_id === 1 ? (
+                    <button
+                      id="btnBuyGood"
+                      onClick={() => {
+                        addToCart(product);
+                        toast.success(`${product.name} добавлен в корзину!`);
+                      }}
+                    >
+                      В корзину
+                    </button>
+                  ) : (
+                    <button id="btnBuyGooddis" disabled>
+                      {product.status.name}
+                    </button>
+                  )}
                 </>
               ) : (
                 <>

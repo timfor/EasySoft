@@ -94,7 +94,7 @@ export const getOrderById = async (req, res) => {
             {
               model: Good, // Модель Good, чтобы получить информацию о товаре
               as: "good", // Указываем алиас для связи
-              attributes: ["name", "price"],
+              attributes: ["name", "price", "img"],
               include: [
                 {
                   model: GoodStatus,
@@ -113,9 +113,15 @@ export const getOrderById = async (req, res) => {
       ],
       attributes: ["order_id", "createdAt", "updatedAt"],
     });
+
+    order.items.forEach((element) => {
+      element.good.img = Buffer.from(element.good.img).toString("base64");
+    });
+
     if (!order) {
       return res.status(404).json({ message: "Заказ не найден" });
     }
+
     res.json(order);
   } catch (err) {
     return res.status(400).json({ error: err.message });
@@ -151,7 +157,7 @@ export const getAllUserOrders = async (req, res) => {
             {
               model: Good, // Модель Good, чтобы получить информацию о товаре
               as: "good", // Указываем алиас для связи
-              attributes: ["name", "price"],
+              attributes: ["name", "price", "img"],
               include: [
                 {
                   model: GoodStatus,
@@ -176,6 +182,11 @@ export const getAllUserOrders = async (req, res) => {
     if (!orders[0]) {
       return res.status(404).json({ success: false, message: "Нету заказов" });
     }
+    orders.forEach((order) => {
+      order.items.forEach((element) => {
+        element.good.img = Buffer.from(element.good.img).toString("base64");
+      });
+    });
 
     return res.status(200).json(orders);
   } catch (err) {

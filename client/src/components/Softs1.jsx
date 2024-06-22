@@ -58,7 +58,7 @@ const Softs1 = () => {
 
     let fetchUrl = `/api/goods?search=${encodeURIComponent(
       searchQuery
-    )}&category=${selectedCategory}&sortByPrice=${sortByPrice}&limit=${itemsPerPage}&page=${currentPage}`;
+    )}&category=${selectedCategory}&sortByPrice=${sortByPrice}&limit=${itemsPerPage}&page=${currentPage}&status=1`;
 
     fetch(fetchUrl, {
       method: "GET",

@@ -1,5 +1,5 @@
 .profileComp{
-	background-color: rgba(222, 222, 222, 0.929);
+	background: linear-gradient(135deg, #e6e6e6 10px, #f3f3f3 80%);
 	min-height: 95vh;
 }
 

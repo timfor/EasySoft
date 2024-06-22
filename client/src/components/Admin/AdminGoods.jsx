@@ -9,6 +9,7 @@ import {
   IconButton,
   Select,
   MenuItem,
+  DialogContentText,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
@@ -24,6 +25,7 @@ const AdminGoods = () => {
   const [editingGood, setEditingGood] = useState(null);
   const [deleteGoodId, setDeleteGoodId] = useState(null);
   const [openEditDialog, setOpenEditDialog] = useState(false);
+  const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
   const [newName, setNewName] = useState("");
   const [newPrice, setNewPrice] = useState("");
   const [newDescription, setNewDescription] = useState("");
@@ -32,6 +34,7 @@ const AdminGoods = () => {
   const [categories, setCategories] = useState([]);
   const [newCategoryId, setNewCategoryId] = useState("");
   const [newStatusId, setNewStatusId] = useState("");
+  const [event, setEvent] = useState(true);
 
   const token = localStorage.getItem("token");
 
@@ -96,7 +99,7 @@ const AdminGoods = () => {
     };
 
     asyncFetch();
-  }, [isAuthenticated, token]);
+  }, [isAuthenticated, token, event]);
 
   const handleEditClick = (good) => {
     setEditingGood(good);
@@ -127,7 +130,7 @@ const AdminGoods = () => {
       formData.append("price", newPrice);
     }
 
-    if (newImg.img[0]) {
+    if (newImg != null) {
       formData.append("img", newImg);
     }
 
@@ -144,20 +147,7 @@ const AdminGoods = () => {
 
       if (response.ok) {
         // Обновление списка товаров после успешного редактирования
-        const updatedGoods = goods.map((good) =>
-          good.good_id === editingGood.good_id
-            ? {
-                ...good,
-                name: newName,
-                price: newPrice,
-                description: newDescription,
-                category_id: newCategoryId,
-                good_status_id: newStatusId,
-                // Обновление других полей товара, если нужно
-              }
-            : good
-        );
-        setGoods(updatedGoods);
+        setEvent(!event);
         toast.success(`Товар "${newName}" успешно обновлен.`);
         setOpenEditDialog(false);
       } else {
@@ -168,10 +158,15 @@ const AdminGoods = () => {
     }
   };
 
-  const handleDeleteClick = async (goodId) => {
-    if (window.confirm("Вы уверены, что хотите удалить этот товар?")) {
+  const handleDeleteClick = (goodId) => {
+    setDeleteGoodId(goodId);
+    setOpenDeleteDialog(true);
+  };
+
+  const handleConfirmDelete = async () => {
+    if (deleteGoodId) {
       try {
-        const response = await fetch(`/api/goods/${goodId}`, {
+        const response = await fetch(`/api/goods/${deleteGoodId}`, {
           method: "DELETE",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -182,9 +177,13 @@ const AdminGoods = () => {
 
         if (response.ok) {
           // Удаление товара из списка после успешного удаления
-          const updatedGoods = goods.filter((good) => good.good_id !== goodId);
+          const updatedGoods = goods.filter(
+            (good) => good.good_id !== deleteGoodId
+          );
           setGoods(updatedGoods);
           toast.success(`Товар успешно удален.`);
+          setOpenDeleteDialog(false);
+          setDeleteGoodId(null);
         } else {
           toast.error("Ошибка: " + JSON.stringify(result.message));
         }
@@ -192,6 +191,11 @@ const AdminGoods = () => {
         console.error("Ошибка:", JSON.stringify(error));
       }
     }
+  };
+
+  const handleCloseDeleteDialog = () => {
+    setOpenDeleteDialog(false);
+    setDeleteGoodId(null);
   };
 
   const handleCloseEditDialog = () => {
@@ -213,22 +217,26 @@ const AdminGoods = () => {
         <div className="GoodsAdmCont">
           {goods.map((good) => (
             <div key={good.good_id} className="good_item">
-              <h3>{good.name}</h3>
-              <p>Цена: {good.price}</p>
-              <p>{good.description}</p>
+              <img src={`data:image/png;base64,${good.img}`} alt={good.name} />
+              <div className="good_item-content-wrapper">
+                <div className="good_item-content">
+                  <h3>
+                    {good.good_id} {good.name}
+                  </h3>
+                  <p>Цена: {good.price}.00 р.</p>
+                  <p>{good.status.name}</p>
+                  <p>{good.category.name}</p>
+                </div>
 
-              <img
-                src={`data:image/png;base64,${good.img}`}
-                width={50}
-                alt={good.name}
-              />
-
-              <IconButton onClick={() => handleEditClick(good)}>
-                <EditIcon />
-              </IconButton>
-              <IconButton onClick={() => handleDeleteClick(good.good_id)}>
-                <DeleteIcon />
-              </IconButton>
+                <div className="good_item-buttons">
+                  <IconButton onClick={() => handleEditClick(good)}>
+                    <EditIcon />
+                  </IconButton>
+                  <IconButton onClick={() => handleDeleteClick(good.good_id)}>
+                    <DeleteIcon />
+                  </IconButton>
+                </div>
+              </div>
             </div>
           ))}
         </div>
@@ -253,6 +261,7 @@ const AdminGoods = () => {
             value={newPrice}
             onChange={(e) => setNewPrice(e.target.value)}
           />
+
           <TextField
             margin="dense"
             label="Описание"
@@ -265,7 +274,10 @@ const AdminGoods = () => {
           <input
             type="file"
             accept="image/*"
-            onChange={(e) => setNewImg(e.target.files[0])}
+            onChange={(e) => {
+              const files = Array.from(e.target.files);
+              setNewImg(files[0] || null);
+            }}
           />
 
           <Select
@@ -303,6 +315,26 @@ const AdminGoods = () => {
           <Button onClick={handleCloseEditDialog}>Отмена</Button>
           <Button onClick={handleSaveEdit} variant="contained" color="primary">
             Сохранить изменения
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      <Dialog open={openDeleteDialog} onClose={handleCloseDeleteDialog}>
+        <DialogTitle>Подтверждение удаления</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Вы уверены, что хотите удалить этот товар? Это действие нельзя будет
+            отменить.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseDeleteDialog}>Отмена</Button>
+          <Button
+            onClick={handleConfirmDelete}
+            variant="contained"
+            color="error"
+          >
+            Удалить
           </Button>
         </DialogActions>
       </Dialog>

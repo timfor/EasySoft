@@ -17,7 +17,76 @@
 
 }
 
-.GoodsAdmCont{
+.GoodsAdmCont {
 	margin-top: 20px;
 	width: 100%;
-}
+	display: flex;
+	flex-direction: column;
+	gap: 15px; /* Расстояние между карточками */
+  }
+  
+  .good_item {
+	display: flex;
+	align-items: center; /* Выравнивание по центру */
+	justify-content: space-between; /* Распределение контента и кнопок */
+	background-color: white;
+	border-radius: 10px; /* Скругленные углы */
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Тень для эффекта приподнятости */
+	padding: 15px; /* Внутренний отступ */
+	transition: transform 0.3s, box-shadow 0.3s; /* Плавные анимации */
+
+	max-height: 150px;
+
+  }
+  
+  .good_item:hover {
+	transform: translateY(-5px); /* Анимация при наведении */
+	box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+  }
+  
+  .good_item img {
+	width: 100px; /* Ширина картинки */
+	height: 100px; /* Высота картинки */
+	object-fit: cover; /* Картинка масштабируется, сохраняя пропорции */
+	border-radius: 10px; /* Скругленные углы картинки */
+	margin-right: 20px; /* Отступ от контента */
+  }
+  
+  .good_item-content-wrapper {
+	display: flex;
+	flex-grow: 1;
+	align-items: center;
+	justify-content: space-between;
+  }
+  
+  .good_item-content {
+	display: flex;
+	flex-direction: column;
+  }
+  
+  .good_item-content h3 {
+	margin: 0;
+	font-size: 1.2em;
+	color: #333;
+  }
+  
+  .good_item-content p {
+	margin: 5px 0;
+	color: #555;
+  }
+  
+  .good_item-buttons {
+	display: flex;
+	align-items: center;
+	gap: 10px; 
+  }
+  
+  .good_item-buttons .MuiIconButton-root {
+	color: #888; 
+	transition: color 0.3s;
+  }
+  
+  .good_item-buttons .MuiIconButton-root:hover {
+	color: #000; 
+  }
+  

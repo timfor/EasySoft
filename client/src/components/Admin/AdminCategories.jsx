@@ -167,7 +167,11 @@ const AdminCategories = () => {
           <Button onClick={handleCancelDelete} color="primary">
             Отмена
           </Button>
-          <Button onClick={handleConfirmDelete} color="secondary">
+          <Button
+            onClick={handleConfirmDelete}
+            variant="contained"
+            color="error"
+          >
             Удалить
           </Button>
         </DialogActions>

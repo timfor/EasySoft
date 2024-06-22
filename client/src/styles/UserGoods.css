@@ -1,0 +1,61 @@
+.user-goods-container {
+	width: 100%;
+	margin-top: 0px;
+  }
+.user-goods-container p{
+	margin-top: 0px;
+  }
+  
+  .user-good-item {
+	width: 100%;
+	background-color: white;
+	margin-bottom: 10px;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	padding: 15px;
+	border-radius: 10px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: 15px;
+
+	transition: transform 0.3s, box-shadow 0.3s; /* Плавные анимации */
+
+  }
+  
+  .imgGoodProf{
+	display: flex;
+	justify-self: start;
+	align-items: center;
+	text-align: center;
+  }
+
+  .user-good-item:hover {
+	transform: translateY(-5px);
+	box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+  }
+  
+  .user-good-item p {
+	margin: 0;
+  }
+  
+	.MygoodNameProf{
+		padding: 10px;
+	}
+
+  .download-button,
+  .review-button {
+	margin-left: 10px;
+	padding: 5px 10px;
+	background-color: #007bff;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	transition: background-color 0.3s;
+  }
+  
+  .download-button:hover,
+  .review-button:hover {
+	background-color: #0056b3;
+  }
+  

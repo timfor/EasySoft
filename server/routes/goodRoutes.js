@@ -9,6 +9,7 @@ import {
   createCategory,
   updateCategory,
   deleteCategory,
+  deleteGood,
 } from "../controllers/goodsController.js";
 import {
   createGoodValidation,
@@ -66,4 +67,5 @@ router.patch(
   updateCategory
 ); // update category
 router.delete("/category/:category_id", upload.any(), deleteCategory);
+router.delete("/:good_id", deleteGood);
 export default router;

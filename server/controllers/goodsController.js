@@ -1,6 +1,6 @@
 import { Good, GoodStatus, Category } from "../models/relations.js";
 import { validationResult } from "express-validator";
-import { Op } from "sequelize";
+import { Op, where } from "sequelize";
 
 export const getAllGoods = async (req, res) => {
   try {
@@ -9,17 +9,20 @@ export const getAllGoods = async (req, res) => {
 
     const search = req.query.search || "";
     const category = req.query.category || "";
+    const status = req.query.status || "";
+
     const minPrice = req.query.minPrice ? parseFloat(req.query.minPrice) : null;
     const maxPrice = req.query.maxPrice ? parseFloat(req.query.maxPrice) : null;
     const sortByPrice = req.query.sortByPrice || ""; // 'asc' или 'desc'
 
     let whereClause = {};
+    whereClause[Op.or] = [
+      { name: { [Op.like]: `%${search}%` } },
+      { description: { [Op.like]: `%${search}%` } },
+    ];
 
-    if (search) {
-      whereClause[Op.or] = [
-        { name: { [Op.like]: `%${search}%` } },
-        { description: { [Op.like]: `%${search}%` } },
-      ];
+    if (status) {
+      whereClause.good_status_id = status;
     }
 
     if (category) {
@@ -141,7 +144,6 @@ export const updateGood = async (req, res) => {
     }
 
     if (!req.files || !req.files[0]) {
-      req.body.img = "none";
     } else {
       req.body.img = req.files[0].buffer;
     }
@@ -263,6 +265,27 @@ export const deleteCategory = async (req, res) => {
     return res
       .status(200)
       .json({ success: true, message: "Категория успешно удален" });
+  } catch (err) {
+    return res.status(400).json({ error: err.message });
+  }
+};
+export const deleteGood = async (req, res) => {
+  try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      const errorMessages = errors.array().map((error) => error.msg);
+      return res.status(400).json({ errors: errorMessages });
+    }
+
+    const good = await Good.findByPk(req.params.good_id);
+    if (!good) {
+      return res.status(404).json({ message: "Товар не найдена" });
+    }
+
+    await good.destroy();
+    return res
+      .status(200)
+      .json({ success: true, message: "Товар успешно удален" });
   } catch (err) {
     return res.status(400).json({ error: err.message });
   }
