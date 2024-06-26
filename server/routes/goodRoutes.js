@@ -57,6 +57,7 @@ router.patch(
   contentTypeValidator,
   requestBodyValidator,
   updateGoodValidation,
+
   updateGood
 ); // update good
 router.patch(
@@ -64,6 +65,7 @@ router.patch(
   upload.any(),
   contentTypeValidator,
   requestBodyValidator,
+
   updateCategory
 ); // update category
 router.delete("/category/:category_id", upload.any(), deleteCategory);

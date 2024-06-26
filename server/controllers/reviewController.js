@@ -23,7 +23,7 @@ export const getReviewsByGoodId = async (req, res) => {
           ],
         },
       ],
-      attributes: ["review_id", "good_id", "text"],
+      attributes: ["review_id", "good_id", "text", "createdAt"],
       limit: limit,
       offset: page * limit,
     });

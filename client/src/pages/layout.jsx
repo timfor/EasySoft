@@ -11,6 +11,9 @@ import "../App.css";
 import "../styles/layout.css"; // хз надо или нет
 import "../styles/auth.css";
 
+import { IconButton } from "@mui/material"; // Импорт необходимых компонентов из MUI
+import SearchIcon from "@mui/icons-material/Search";
+
 import Robotimg from "../images/logo2.png";
 import { ReactComponent as Profileimg } from "../images/user-regular.svg";
 
@@ -28,7 +31,7 @@ const UnauthorizedLayout = () => {
   return (
     <>
       <header>
-        <div className="container">
+        <div className="container head-cont">
           <NavLink className="header-left" to="/">
             <img src={Robotimg} alt="" />
           </NavLink>
@@ -40,7 +43,9 @@ const UnauthorizedLayout = () => {
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}
             />
-            <button type="submit">Искать</button>
+            <IconButton type="submit">
+              <SearchIcon />
+            </IconButton>
           </form>
 
           <div className="header-right">

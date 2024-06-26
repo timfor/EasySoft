@@ -8,11 +8,25 @@ import { useForm } from "react-hook-form";
 import useGoodsStore from "../context/GoodsStore.js";
 import { useAuthStore } from "../AppStateContext.js";
 
+import {
+  Button,
+  IconButton,
+  TextField,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from "@mui/material"; // Импорт необходимых компонентов из MUI
+import DeleteIcon from "@mui/icons-material/Delete"; // Импорт иконки удаления из MUI
+
 const SoftBigCard = ({ product }) => {
   const base64Img = product.img;
   const imageUrl = `data:image/png;base64,${base64Img}`;
   const { cart, addToCart, removeFromCart, clearCart } = useCartStore();
   const token = localStorage.getItem("token");
+  const [goodsBackend, setGoods] = useState([]);
+  const [isHaveGood, setHaveGood] = useState(false);
 
   const { isAuthenticated, data } = useAuthStore();
   // const { userProducts, fetchUserProducts } = useGoodsStore();
@@ -20,7 +34,56 @@ const SoftBigCard = ({ product }) => {
   // fetchUserProducts(65);
 
   const [reviews, setReviews] = useState([]);
-  const [event, setEvent] = useState(0);
+  const [event, setEvent] = useState(true);
+
+  useEffect(() => {
+    if (data !== null) {
+      const asyncFetch2 = async () => {
+        try {
+          const ordersResponse = await fetch(
+            `/api/orders/user/${data.userId}?limit=50555&page=0`,
+            {
+              method: "GET",
+              headers: {
+                Authorization: token,
+                "Content-Type": "application/json",
+              },
+            }
+          );
+
+          const ordersDataJson = await ordersResponse.json();
+          let arr = [];
+
+          if (ordersResponse.ok) {
+            ordersDataJson.forEach((element) => {
+              if (element.order_status.order_status_id === 2) {
+                // выбираем оплаченные заказы
+                arr = [...arr, ...element.items];
+              }
+            });
+
+            setGoods(
+              Array.from(
+                new Map(arr.map((item) => [item.good_id, item])).values()
+              )
+            );
+            arr.forEach((element) => {
+              if (element.good_id == product.good_id) {
+                setHaveGood(true);
+              }
+            });
+          } else {
+            // Handle error if needed
+            console.error("Ошибка получения данных заказов:", ordersDataJson);
+          }
+        } catch (error) {
+          console.error("Ошибка получения данных заказов:", error);
+        }
+      };
+
+      asyncFetch2();
+    }
+  }, [isAuthenticated, token]);
 
   useEffect(() => {
     const asyncFetch = async () => {
@@ -31,7 +94,6 @@ const SoftBigCard = ({ product }) => {
             {
               method: "GET",
               headers: {
-                Authorization: `${token}`,
                 "Content-Type": "application/json",
               },
             }
@@ -49,8 +111,9 @@ const SoftBigCard = ({ product }) => {
         }
       }
     };
+
     asyncFetch();
-  }, [event]);
+  }, [event, isAuthenticated]);
 
   const {
     register,
@@ -82,13 +145,35 @@ const SoftBigCard = ({ product }) => {
 
         if (response.ok) {
           toast.success(`отзыв добавлен`);
-          setEvent(1);
+          setEvent(!event);
         } else {
           toast.error("Ошибка " + JSON.stringify(result.message));
         }
       } catch (error) {
         console.error("Ошибка:", JSON.stringify(error));
       }
+    }
+  };
+  const handleDeleteClick = async (review_id) => {
+    try {
+      const response = await fetch(`/api/reviews/${review_id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.ok) {
+        setEvent(!event);
+
+        toast.success("Отзыв успешно удален.");
+      } else {
+        const errorData = await response.json();
+        toast.error("Ошибка: " + JSON.stringify(errorData));
+      }
+    } catch (err) {
+      toast.error("Ошибка: " + JSON.stringify(err));
     }
   };
 
@@ -144,28 +229,55 @@ const SoftBigCard = ({ product }) => {
         </div>
         <div className="commentSection">
           <h2>Отзывы</h2>
-          <form className="commentForm" onSubmit={handleSubmit(onSubmit)}>
-            <textarea
-              id="reviewInput"
-              placeholder="Напишите свой отзыв здесь..."
-              {...register("text", {
-                required: "Поле не должно быть пустым",
-              })}
-            />
+          {isHaveGood == true ? (
+            <form className="commentForm" onSubmit={handleSubmit(onSubmit)}>
+              <textarea
+                id="reviewInput"
+                placeholder="Напишите свой отзыв здесь..."
+                {...register("text", {
+                  required: "Поле не должно быть пустым",
+                })}
+              />
 
-            <input
-              id="commentButton"
-              type="submit"
-              value="Отправить"
-              disabled={!isValid}
-            />
-          </form>
+              <input
+                id="commentButton"
+                type="submit"
+                value="Отправить"
+                disabled={!isValid}
+              />
+            </form>
+          ) : isHaveGood == false ? (
+            <form className="commentForm" onSubmit={handleSubmit(onSubmit)}>
+              <textarea
+                id="reviewInput"
+                placeholder="Чтобы оставить отзыв - вы должны приобрести товар"
+                {...register("text", {
+                  required: "Поле не должно быть пустым",
+                })}
+                disabled={true}
+              />
+
+              <input
+                id="commentButton"
+                type="submit"
+                value="Отправить"
+                disabled={true}
+              />
+            </form>
+          ) : (
+            <>zxzxzx</>
+          )}
 
           <hr style={{ border: "1px solid black", width: "100%" }} />
 
           {reviews[0] ? (
             reviews.map((comment) => (
-              <CommentItem key={comment.review_id} comment={comment} />
+              <CommentItem
+                key={comment.review_id}
+                comment={comment}
+                onDeleteClick={handleDeleteClick}
+                trueUserIdReal={data.userId}
+              />
             ))
           ) : (
             <></>
@@ -176,18 +288,33 @@ const SoftBigCard = ({ product }) => {
   );
 };
 
-const CommentItem = ({ comment }) => {
-  const { text, user } = comment;
+const CommentItem = ({ comment, onDeleteClick, trueUserIdReal }) => {
+  const { createdAt, text, user, review_id } = comment;
   return (
     <div className="comment-item">
-      <img
-        src={`data:image/jpeg;base64,${user.img}`}
-        alt={`${user.name}'s avatar`}
-        className="avatarComment"
-      />
-      <div className="comment-content">
-        <h3>{user.name}</h3>
-        <p>{text}</p>
+      <div className="comment-item-2">
+        <img
+          src={`data:image/jpeg;base64,${user.img}`}
+          alt={`${user.name}'s avatar`}
+          className="avatarComment"
+        />
+        <div className="comment-content">
+          <div className="createdAtReview">
+            <h3>{user.name}</h3>
+            <p> {createdAt.split(".")[0]}</p>
+          </div>
+          <p>{text}</p>
+        </div>
+      </div>
+      <div>
+        {" "}
+        {user.user_id === trueUserIdReal ? (
+          <IconButton onClick={() => onDeleteClick(review_id)}>
+            <DeleteIcon />
+          </IconButton>
+        ) : (
+          <></>
+        )}
       </div>
     </div>
   );

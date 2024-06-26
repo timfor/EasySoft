@@ -36,6 +36,6 @@ export const Review = sequelize.define(
 
   {
     tableName: "reviews",
-    timestamps: false, // Отключение автоматического создания полей createdAt и updatedAt
+    timestamps: true, // Отключение автоматического создания полей createdAt и updatedAt
   }
 );

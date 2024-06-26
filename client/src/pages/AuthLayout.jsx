@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { NavLink, Outlet, useNavigate, useLocation } from "react-router-dom";
+import { IconButton } from "@mui/material"; // Импорт необходимых компонентов из MUI
+import SearchIcon from "@mui/icons-material/Search";
 
 import "../App.css";
 import "../styles/layout.css";
-
 import Robotimg from "../images/logo2.png";
 import { ReactComponent as Profileimg } from "../images/user-regular.svg";
 import { ReactComponent as Settingsimg } from "../images/gear-solid.svg";
@@ -50,7 +51,9 @@ const LayoutAuth = () => {
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}
             />
-            <button type="submit">Искать</button>
+            <IconButton type="submit">
+              <SearchIcon />
+            </IconButton>
           </form>
 
           <div className="header-right">

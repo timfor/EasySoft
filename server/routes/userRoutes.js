@@ -1,4 +1,5 @@
 import express from "express";
+
 import {
   getAllUsers,
   updateUser,
@@ -25,6 +26,7 @@ router.patch(
   contentTypeValidator,
   requestBodyValidator,
   updateUserValidation,
+
   updateUser
 ); // update user
 
